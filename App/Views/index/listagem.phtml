@@ -1,0 +1,107 @@
+<div class="container" style="min-height:480px;">
+    <br><br><br><br>
+    <div class="row d-flex justify-content-start mb-2">
+        <div class="col-12">
+            <a href="/administration">
+                <i class="fas fa-arrow-left fa-3x text-dark" title="Voltar"></i>
+            </a>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8 col-12">
+            <table class="table bg-white text-center">
+
+                <?php
+                if (empty($this->view->dados_cliente)) {
+                    $this->view->dados_cliente = "";
+                } else {
+                ?>
+                    <thead>
+                        <tr>
+                            <td>Id</td>
+                            <td>Nome</td>
+                            <td>Celular</td>
+                            <td>E-mail</td>
+                            <td>Data cadastro</td>
+                        </tr>
+                    </thead>
+                    <?php
+                    foreach ($this->view->dados_cliente as $key => $dado) {
+                    ?>
+                        <tr>
+                            <td><?= $dado['cli_id'] ?></td>
+                            <td><?= $dado['cli_name'] ?></td>
+                            <td><?= $dado['cli_phone'] ?></td>
+                            <td><?= $dado['cli_email'] ?></td>
+                            <td><?= $dado['cli_data_cadastro'] ?></td>
+                        </tr>
+                    <?php
+                    }
+                }
+                if (empty($this->view->dados_pedido)) {
+                    $this->view->dados_pedido = "";
+                } else {
+                    ?>
+                    <thead>
+                        <tr>
+                            <td>Id pedido</td>
+                            <td>Id cliente</td>
+                            <td>Valor</td>
+                            <td>Data pedido</td>
+                        </tr>
+                    </thead>
+                    <?php
+                    foreach ($this->view->dados_pedido as $key => $dado) {
+                    ?>
+                        <tr>
+                            <td><?= $dado['id_pedido'] ?></td>
+                            <td><?= $dado['id_cliente'] ?></td>
+                            <td><?= $dado['pedi_value'] ?></td>
+                            <td><?= $dado['pedi_data'] ?></td>
+                        </tr>
+                    <?php
+                    }
+                }
+                if (empty($this->view->dados_produto)) {
+                    $this->view->dados_produto = "";
+                } else {
+                    ?>
+                    <thead>
+                        <tr>
+                            <td>Id produto</td>
+                            <td>Título</td>
+                            <td>Categoria</td>
+                            <td>valor</td>
+                            <td>Data cadastro</td>
+                        </tr>
+                    </thead>
+                    <?php
+                    foreach ($this->view->dados_produto as $key => $dado) {
+                    ?>
+                        <tr>
+                            <td><?= $dado['prod_id'] ?></td>
+                            <td><?= $dado['prod_title'] ?></td>
+                            <td><?= $dado['prod_category'] ?></td>
+                            <td><?= $dado['prod_value'] ?></td>
+                            <td><?= $dado['date_cad_prod'] ?></td>
+                        </tr>
+                    <?php
+                    }
+                }
+                if (empty($this->view->dados_cliente) && empty($this->view->dados_pedido) && empty($this->view->dados_produto)) {
+                    ?>
+                    <thead>
+                        <td class="text-center">
+                            <h4 class="text-dark">
+                                Nenhum item encontrado!
+                            </h4>
+                        </td>
+                    </thead>
+                <?php
+                }
+
+                ?>
+            </table>
+        </div>
+    </div>
+</div>

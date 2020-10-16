@@ -1,0 +1,38 @@
+body {
+    background-color: rgb(247, 189, 189) !important;
+    padding-top: 60px !important;
+}
+
+#forgotForm {
+    min-height: 450px !important;
+}
+
+#formMenu {
+    min-height: 400px !important;
+}
+
+.ListMenu:hover {
+    background-color: rgba(0, 0, 0, .3) !important;
+    border-radius: 2px;
+}
+
+.optList:hover {
+    color: rgb(247, 189, 189) !important;
+}
+
+.optList:active {
+    color: rgb(218, 100, 100) !important;
+}
+
+.span-page:hover {
+    color: rgb(247, 189, 189) !important;
+    cursor: pointer;
+}
+
+.span-page:active {
+    color: rgb(218, 100, 100) !important;
+}
+
+.listaProdutos {
+    min-height: 275px !important;
+}

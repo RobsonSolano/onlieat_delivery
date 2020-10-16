@@ -1,0 +1,84 @@
+<script>
+    function verifyPass() {
+        var firstPass = document.getElementById("firstPass").value
+        var newPass = document.getElementById("newPass").value
+        var btn = document.getElementById("btnSubmit")
+        var span = document.getElementById("spanError")
+        if (firstPass == newPass) {
+            span.className = "d-none"
+            btn.className = "btn btn-dark"
+        } else {
+            btn.className = "d-none"
+        }
+    }
+    $(document).on("keydown", "form", function(event) {
+        return event.key != "Enter";
+    });
+
+    function alterViewPass(idinput, idbtn) {
+        $('#' + idinput).attr('type', 'text')
+        $('#' + idbtn).attr('class', 'fas fa-eye')
+    }
+
+    function alterClosePass(idinput, idbtn) {
+        $('#' + idinput).attr('type', 'password')
+        $('#' + idbtn).attr('class', 'fas fa-eye-slash')
+    }
+</script>
+<div class="container-fluid" id="forgotForm">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-md-6 p-5 bg-white rounded">
+            <?php if (isset($this->view->msgSuccess)) { ?>
+                <div class="alert alert-success  alert-dismisseble" role="alert">
+                    <button class="close" type="button" data-dismiss="alert">
+                        &times;
+                    </button> <?php if ($this->view->msgSuccess == "") {
+                                    echo "Senha alterada com sucesso!";
+                                } else {
+                                    echo $this->view->msgSuccess;
+                                }  ?>
+                </div>
+                <?php echo '<meta http-equiv="refresh" content="3;/identifica">'; ?>
+            <?php } ?>
+
+            <?php if (isset($this->view->msgError)) { ?>
+                <div class="alert alert-danger  alert-dismisseble" role="alert">
+                    <button class="close" type="button" data-dismiss="alert">
+                        &times;
+                    </button> <?= $this->view->msgError  ?>
+                    <p class="text-secondary">Por favor, tente novamente</p>
+                </div>
+
+            <?php } ?>
+            <form action="/forgot/reset" class="form text-start px-3" method="POST" onkeydown="return event.key != 'Enter';">
+                <div class="pb-2 text-center">
+                    <h5 class="text-secondary border-bottom">Alteração de senha</h5>
+                </div>
+                <div class="input-group">
+                    <input type="password" name="pass_update" id="firstPass" minlength="6" required maxlength="8" class="form-control" placeholder="Digite sua nova senha">
+                    <div class="input-group-append">
+                        <button type="button" onmouseover="alterViewPass('firstPass','eyesFas')" onmouseout="alterClosePass('firstPass','eyesFas')" class="btn btn-secondary text-white">
+                            <i id="eyesFas" class="fas fa-eye-slash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-group my-3">
+                    <input type="password" id="newPass" minlength="6" required maxlength="8" name="new_pass" class="form-control" onkeyup="verifyPass()" placeholder="Confirme sua nova senha">
+                    <div class="input-group-append">
+                        <button type="button" onmouseover="alterViewPass('newPass','eyesFasNew')" onmouseout="alterClosePass('newPass','eyesFasNew')" class="btn btn-secondary text-white">
+                            <i id="eyesFasNew" class="fas fa-eye-slash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" id="btnSubmit" class="d-none">Alterar</button>
+                    </div>
+                </div>
+                <div class="input-group my-3">
+                    <span class="" id="spanError"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

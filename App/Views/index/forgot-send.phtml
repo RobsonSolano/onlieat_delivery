@@ -1,0 +1,67 @@
+  <div class="container">
+      <div class="row d-flex justify-content-center">
+          <div class="col-12 col-md-6 text-center p-3 mt-3 bg-white border shadow rounded">
+
+              <?php if (isset($this->view->sendSuccess)) { ?>
+                  <div class="alert alert-success  alert-dismisseble" role="alert">
+                      <button class="close" type="button" data-dismiss="alert">
+                          &times;
+                      </button> <?= $this->view->sendSuccess  ?>
+                      <p class="mt-3 text-secondary">
+                          Verifique seu e-mail
+                      </p>
+                  </div>
+
+                  <form action="/forgot/verify" class="form" method="POST">
+                      <label for="code_post">Digite o código enviado</label>
+                      <div class="input-group">
+                          <input type="number" name="code_post" id="code_post" class="form-control">
+                          <div class="input-group-append">
+                              <button type="submit" class="btn btn-dark">Verificar</button>
+                          </div>
+                      </div>
+                  </form>
+                  <div class="text-start mx-4">
+                      <a href="/forgot" class="text-secondary">
+                          Não recebeu?
+                      </a>
+                  </div>
+
+              <?php }elseif (isset($this->view->msgError)) { ?>
+                  <div class="alert alert-danger  alert-dismisseble" role="alert">
+                      <button class="close" type="button" data-dismiss="alert">
+                          &times;
+                      </button> <?= $this->view->msgError  ?>
+                      <p class="mt-3 text-secondary">
+                          Desculpe o transtorno, tente novamente.
+                      </p>
+                  </div>
+              <?php } elseif (isset($this->view->codeError)) { ?>
+                  <div class="alert alert-danger  alert-dismisseble" role="alert">
+                      <button class="close" type="button" data-dismiss="alert">
+                          &times;
+                      </button> <?= $this->view->codeError  ?>
+                      <p class="mt-3 text-secondary">
+                          Tente novamente
+                      </p>
+                  </div>
+
+                  <form action="/forgot/verify" class="form" method="POST">
+                      <label for="code_post">Digite o código enviado</label>
+                      <div class="input-group">
+                          <input type="number" name="code_post" id="code_post" value="<?= $this->view->code ?>" class="form-control">
+                          <div class="input-group-append">
+                              <button type="submit" class="btn btn-dark">Verificar</button>
+                          </div>
+                      </div>
+                  </form>
+                  <div class="text-start mx-4">
+                      <a href="/forgot" class="text-secondary">
+                          Não recebeu?
+                      </a>
+                  </div>
+
+              <?php } ?>
+          </div>
+      </div>
+  </div>

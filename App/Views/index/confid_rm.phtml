@@ -1,0 +1,175 @@
+<?php
+
+if (!isset($_SESSION['cli_name'])) {
+    header('location:/identifica');
+}
+?>
+<!-- paginas -->
+
+<div class="container">
+    <div class="row mt-3 pt-3 mb-0">
+        <div class="col-12 text-center border-bottom mb-0">
+            <h4 class="text-dark"><?= $_SESSION['cli_name'] ?></h4>
+        </div>
+    </div>
+</div>
+<?php
+if (isset($_GET['action']) && $_GET['action'] == "ok") {
+?>
+    <div class="row d-flex justify-content-center">
+        <div class="alert alert-success alert-dismisseble">
+            <button class="close" type="button" data-dismiss="alert">
+                &times;
+            </button>
+            <strong> Fechar </strong>Ação realizada com sucesso
+        </div>
+    </div>
+<?php
+} elseif (isset($_GET['action']) && $_GET['action'] == "error") {
+?>
+    <div class="row d-flex justify-content-center">
+        <div class="alert alert-danger alert-dismisseble">
+            <button class="close" type="button" data-dismiss="alert">
+                &times;
+            </button>
+            <strong> Fechar </strong>Falha ao realizar esta ação!
+        </div>
+    </div>
+<?php
+}
+?>
+
+<div class="row d-flex justify-content-around p-4 mx-2">
+
+    <div class="col-12 col-md-6 col-lg-4 mt-1">
+        <div class="card">
+            <div class="card-header">
+                Número de pedidos
+            </div>
+            <div class="card-body">
+                <h5 id="numeroVendas" class="card-title"><?= $_SESSION['tot_pedidos'] ?></h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4 mt-1">
+        <div class="card">
+            <div class="card-header">
+                Total de clientes
+            </div>
+            <div class="card-body">
+                <h5 id="totalVendas" class="card-title"><?= $_SESSION['tot_clientes'] ?></h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4 mt-1">
+        <div class="card">
+            <div class="card-header">
+                Total de Produtos
+            </div>
+            <div class="card-body">
+                <h5 id="totalVendas" class="card-title"><?= $_SESSION['tot_produtos'] ?></h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4 mt-1">
+        <div class="card">
+            <div class="card-header">
+                Listar cliente(s)
+            </div>
+            <div class="card-body text-center">
+                <form action="/admin_adm/listagem_clientes" method="post">
+                    <div class="input-group">
+                        <input type="number" name="cliente_id" placeholder="Id do cliente" class="form-control">
+                        <div class="input-group-append">
+                            <input type="submit" class="form-control bg-dark text-white" value="Listar">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4 mt-1">
+        <div class="card">
+            <div class="card-header">
+                Listar produto(s)
+            </div>
+            <div class="card-body text-center">
+                <form action="/admin_adm/listagem_produtos" method="post">
+                    <div class="input-group">
+                        <input type="number" name="produto_id" placeholder="Id do produto" class="form-control">
+                        <div class="input-group-append">
+                            <input type="submit" class="form-control bg-dark text-white" value="Listar">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4 mt-1">
+        <div class="card">
+            <div class="card-header">
+                Listar pedido(s)
+            </div>
+            <div class="card-body text-center">
+                <form action="/admin_adm/listagem_pedidos" method="post">
+                    <div class="input-group">
+                        <input type="number" name="pedido_id" placeholder="Id do pedido" class="form-control">
+                        <div class="input-group-append">
+                            <input type="submit" class="form-control bg-dark text-white" value="Listar">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4 mt-1">
+        <div class="card">
+            <div class="card-header">
+                Cadastrar novo produto
+            </div>
+            <div class="card-body text-center">
+                <a href="/admin_adm/cad_prod" class="btn btn-dark">Cadastrar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4 mt-1">
+        <div class="card">
+            <div class="card-header">
+                Remover um produto
+            </div>
+            <div class="card-body">
+                <form class="form" method="POST" action="/admin_adm/remove_prod">
+                    <div class="input-group">
+                        <input type="number" required name="remove_prod" placeholder="Id do produto" class="form-control">
+                        <div class="input-group-append">
+                            <input type="submit" class="form-control bg-dark text-white" value="Remover">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4 mt-1">
+        <div class="card">
+            <div class="card-header">
+                Remover um cliente
+            </div>
+            <div class="card-body">
+                <form class="form" method="POST" action="/admin_adm/remove_cliente">
+                    <div class="input-group">
+                        <input type="number" required name="remove_cli" placeholder="Id do cliente" class="form-control">
+                        <div class="input-group-append">
+                            <input type="submit" class="form-control bg-dark text-white" value="Remover">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>

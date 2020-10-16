@@ -1,0 +1,298 @@
+<?php
+if (!isset($_SESSION['cli_id'])) {
+    header('location:/identifica');
+}
+?>
+<form action="/pedido" method="POST" id="formMenu">
+    <section id="listaProdutos" class="my-5">
+        <div class="container-fluid">
+            <!-- cardápio -->
+            <?php
+
+            if (isset($_GET['error']) && $_GET['error'] === "value") { ?>
+                <div class="row">
+                    <div class="col-12 text-center py-3">
+                        <div class="alert alert-danger alert-dismisseble">
+                            <button class="close" type="button" data-dismiss="alert">
+                                &times;
+                            </button>
+                            Valor informado incorreto<br>Não pode ser menor que o total a pagar<br>refaça o pedido!
+                        </div>
+                    </div>
+                </div>
+            <?php }
+            ?>
+            <div class="row d-flex justify-content-center sticky-top">
+
+                <!-- Menu cardápio -->
+                <div class="col-12 col-md-10 px-0">
+
+                    <nav class="navbar navbar-expand bg-dark text-white rounded-top mx-0" id="menuOptions">
+                        <ul class="navbar-nav w-100 d-flex justify-content-around">
+                            <li class="active nav-item ListMenu" onclick="showOption('showLanches')">
+                                <a name="lanche" type="button" class="nav-link text-white optList">
+                                    Lanches
+                                    <i class="fas fa-caret-down fas-2x text-white"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item ListMenu" onclick="showOption('showPorcoes')">
+                                <a name="lanche" type="button" class="nav-link text-white optList">
+                                    Porções
+                                    <i class="fas fa-caret-down text-white"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item ListMenu" onclick="showOption('showBebidas')">
+                                <a name="bebida" type="button" class="nav-link text-white optList">
+                                    Bebidas
+                                    <i class="fas fa-caret-down text-white"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+                <!-- Fim Menu cardápio -->
+
+                <!-- Lista de produtos -->
+                <div class="container-fluid">
+                    <div class="row d-flex justify-content-center mb-4">
+                        <div class="col-12 col-md-10 bg-white rounded-bottom">
+
+                            <!-- Lanches -->
+                            <div class="d-none" id="showLanches">
+
+                                <!-- Listagem de lanches do DB-->
+                                <?php foreach ($this->view->lanches as $key => $value) { ?>
+                                    <div class="row rounded p-3 border-bottom">
+                                        <div class="col-6 border-right">
+
+                                            <div class="row d-flex justify-content-center">
+                                                <h5><?= $value['prod_title'] ?></h5>
+                                            </div>
+                                            <div class="row text-center d-flex justify-content-center">
+                                                <label for="<?= $value['prod_id'] ?>">
+                                                    <img class="align-self-center border-bottom" src="produtos/<?= $value['prod_name_image'] ?>" title="<?= $value['prod_title'] ?>" width="150" height="120">
+                                                </label>
+                                            </div>
+                                            <div class="row d-flex justify-content-center">
+                                                <p class="text-secondary"><?= $value['prod_description'] ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 pt-5">
+                                            <div class="row d-flex justify-content-center">
+                                                <h4 class="text-danger">R$ <?= str_replace('.', ',', $value['prod_value']) ?></h4>
+                                            </div>
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="form-group">
+                                                    <label for="<?= $value['prod_id'] ?>">Quero esse
+                                                        <input type="checkbox" name="prod_<?= $value['prod_id'] ?>" value="<?= $value['prod_id'] ?>" id="<?= $value['prod_id'] ?>" class="form-control">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+
+                            </div>
+
+
+                            <!-- Porçoes -->
+                            <div class="d-none" id="showPorcoes">
+
+                                <?php foreach ($this->view->porcoes as $key => $value) { ?>
+
+                                    <!-- Listagem de Porções do DB-->
+                                    <div class="row rounded p-2 border-bottom">
+                                        <div class="col-6 border-right">
+                                            <div class="row d-flex justify-content-center border-bottom p-2">
+                                                <h5 class="mt-1"><?= $value['prod_title'] ?></h5>
+                                            </div>
+                                            <div class="row text-center d-flex justify-content-center p-3">
+                                                <label for="<?= $value['prod_id'] ?>">
+                                                    <img class="img-fluid" src="produtos/<?= $value['prod_name_image'] ?>" title="<?= $value['prod_title'] ?>" width="180" height="150">
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6 pt-5">
+                                            <div class="row d-flex justify-content-center text-center">
+                                                <h5 class="text-danger">R$ <?= str_replace('.', ',', $value['prod_value']) ?></h5>
+                                            </div>
+                                            <div class="row d-flex justify-content-center text-center">
+                                                <label for="<?= $value['prod_id'] ?>">Quero esse
+                                                    <input type="checkbox" name="prod_<?= $value['prod_id'] ?>" value="<?= $value['prod_id'] ?>" id="<?= $value['prod_id'] ?>" class="form-control">
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                <?php } ?>
+
+                            </div>
+
+                            <!-- Bebidas -->
+                            <div class="d-none" id="showBebidas">
+
+                                <?php foreach ($this->view->bebidas as $key => $value) { ?>
+
+
+                                    <div class="row rounded p-3 border-bottom">
+                                        <div class="col-6 border-right">
+
+                                            <div class="row d-flex justify-content-center border-bottom">
+                                                <h5><?= $value['prod_title'] ?></h5>
+                                            </div>
+                                            <div class="row text-center d-flex justify-content-center p-2">
+                                                <label for="<?= $value['prod_id'] ?>">
+                                                    <img class="align-self-center" src="produtos/<?= $value['prod_name_image'] ?>" title="<?= $value['prod_title'] ?>" width="180" height="150">
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 pt-5">
+                                            <div class="row d-flex justify-content-center">
+                                                <h4 class="text-danger">R$ <?= str_replace('.', ',', $value['prod_value']) ?></h4>
+                                            </div>
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="form-group">
+                                                    <label for="<?= $value['prod_id'] ?>">Quero esse
+                                                        <input type="checkbox" name="prod_<?= $value['prod_id'] ?>" value="<?= $value['prod_id'] ?>" id="<?= $value['prod_id'] ?>" class="form-control">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+
+                        </div>
+                        <!--Fim  Lista de produtos -->
+
+                    </div>
+
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-12 col-md-8 d-flex justify-content-center">
+                            <button type="button" class="btn btn-danger w-50" onclick="showDiv('enderecoEntrega','listaProdutos')">
+                                Continuar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Fim cardápio -->
+                </div>
+
+    </section>
+
+    <!-- Inicio identificação -->
+    <section id="enderecoEntrega" class="d-none">
+        <div class="container">
+
+            <?php
+            if ($this->view->adressOn == true) {
+                foreach ($this->view->adress as $key => $value) { ?>
+                    <div class="row mb-3 text-center">
+                        <div class="col-12 border-bottom">
+                            <h3 class="text-white">Dados para entrega</h3>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+
+                        <div class="col-12 col-md-8">
+                            <div class="form-group">
+                                <input type="text" name="cli_name" class="form-control text-secondary" value="<?= $_SESSION['cli_name'] ?>">
+                            </div>
+                            <div class="form-group">
+                                <select name="cli_city" class="form-control text-secondary ">
+                                    <option disabled selected>Cidade</option>
+                                    <?php
+                                    if ($value['end_city'] == "salto") {
+                                        echo "<option value='1' selected>Salto</option>";
+                                    } elseif ($value['end_city'] == "itu") {
+                                        echo "<option value='2' selected>ITU</option>";
+                                    } elseif ($value['end_city'] == "indaiatuba") {
+                                        echo "<option value='3' selected>Indaíatuba</option>";
+                                    } else {
+                                    ?>
+                                        <option value='1' selected>Salto</option>
+                                        <option value='2'>ITU</option>
+                                        <option value='3'>Indaíatuba</option>
+                                    <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-9 col-8">
+                                    <input type="text" name="cli_street" value="<?= $value['end_street']  ?>" class="form-control text-secondary w-100" placeholder="Digite a rua">
+                                </div>
+                                <div class="col-md-3 col-4">
+                                    <input type="text" name="cli_n_house" value="<?= $value['end_num'] ?>" placeholder="Nº " class="form-control text-secondary w-100">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="cli_district" class="form-control text-secondary" value="<?= $value['end_district'] ?>" placeholder="Bairro">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="cli_obs" class="form-control text-secondary" placeholder="Deixe alguma obervação, como apartamento, casa dos fundos, etc..."></textarea>
+                            </div>
+
+                        </div>
+                    <?php }
+            } else { ?>
+                    <div class="row mb-3 text-center">
+                        <div class="col-12 border-bottom">
+                            <h3 class="text-white">Dados para entrega</h3>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+
+                        <div class="col-12 col-md-8">
+                            <div class="form-group">
+                                <input type="text" name="cli_name" class="form-control text-secondary" value="<?= $_SESSION['cli_name'] ?>">
+                            </div>
+                            <div class="form-group">
+                                <select name="cli_city" class="form-control text-secondary ">
+                                    <option disabled selected>Cidade</option>
+
+                                    <option value="1">Salto</option>
+                                    <option value="2">ITU</option>
+                                    <option value="3">Indaíatuba</option>
+
+                                </select>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-9 col-8">
+                                    <input type="text" name="cli_street" value="<?= $value['end_street']  ?>" class="form-control text-secondary w-100" placeholder="Digite a rua">
+                                </div>
+                                <div class="col-md-3 col-4">
+                                    <input type="text" name="cli_n_house" value="<?= $value['end_num'] ?>" placeholder="Nº " class="form-control text-secondary w-100">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="cli_district" class="form-control text-secondary" placeholder="Bairro">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="cli_obs" class="form-control text-secondary" placeholder="Deixe alguma obervação, como apartamento, casa dos fundos, etc..."></textarea>
+                            </div>
+
+                        </div>
+
+                    </div>
+                <?php } ?>
+                <div class="container">
+                    <div class="row mt-3 d-flex justify-content-around">
+                        <div class="col-6 col-md-4">
+                            <button type="button" class="form-control btn btn-danger" onclick="showDiv('listaProdutos','enderecoEntrega')">
+                                Voltar
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <button type="submit" class="form-control btn btn-danger">
+                                Continuar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+    </section><!-- Fim identificação -->
+
+</form>

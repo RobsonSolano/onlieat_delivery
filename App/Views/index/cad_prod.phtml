@@ -1,0 +1,71 @@
+<div class="container" style="min-height:450px; margin-top:120px;">
+    <div class="row d-flex justify-content-start mb-2">
+        <div class="col-2 col-md-3">
+            <a href="/administration">
+                <i class="fas fa-arrow-left fa-3x text-dark" title="Voltar"></i>
+            </a>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+
+        <div class="col-12 col-md-12 border p-4">
+            <?php
+            if (isset($_GET['status']) && $_GET['status'] == "error") {
+            ?>
+                <div class="alert alert-danger alert-dismisseble">
+                    <button class="close" type="button" data-dismiss="alert">
+                        &times;
+                    </button>
+                    Falha ao cadastrar produto!
+                </div>
+            <?php
+            } elseif (isset($_GET['status']) && $_GET['status'] == "success") {
+            ?>
+                <div class="alert alert-success alert-dismisseble">
+                    <button class="close" type="button" data-dismiss="alert">
+                        &times;
+                    </button>
+                    Produto cadastrado com sucesso
+                </div>
+            <?php
+            }
+            ?>
+
+            <form action="/admin_adm/cad_produto" method="POST" class="form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" name="prod_title" required placeholder="Título do produto" class="form-control">
+                </div>
+                <div class="form-group">
+                    <div class="custom-file">
+                        <label for="arquivo" class="custom-file-label">Selecione um arquivo</label>
+                        <input type="file" required name="file_upload" class="custom-file-input" id="arquivo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select name="prod_category" class="form-control">
+                        <option disabled selected class="form-control ">-- Categoria --</option>
+                        <option value="lanche" class="form-control bg-dark text-white">Lanche</option>
+                        <option value="porcao" class="form-control bg-dark text-white">Porção</option>
+                        <option value="bebida" class="form-control bg-dark text-white">Bebida</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea name="prod_desc" required placeholder="Descrição: Ingredientes" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-preppend">
+                            <button class="btn btn-dark">R$ </button>
+                        </div>
+                        <input type="text" name="prod_value" placeholder="0.00" class="form-control">
+                    </div>
+
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-dark">Cadastrar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

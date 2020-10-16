@@ -1,0 +1,118 @@
+<?php @session_start(); ?>
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="Public/img/favicon.png">
+    <meta charset="utf-8" />
+    <!--Css interno-->
+    <link rel="stylesheet" href="Public/css/style.css">
+    <title>OnliEat Delivery</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS e JSs -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="Public/js/main.js"></script>
+</head>
+
+<body>
+    <!--Cabeçalho-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark p-2">
+        <div class="container">
+            <h1 class="text-light h1">Onli<strong class="text-danger">Eat</strong>
+                <a href="/"><i class="fas fa-utensils text-white"></i></a>
+            </h1>
+
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#nav-principal">
+                <i class="fas fa-bars text-white fa-lg"></i>
+            </button>
+
+            <div class="collapse menu navbar-collapse" id="nav-principal">
+                <ul class="navbar-nav ml-auto mt-2">
+                    <li class="nav-item">
+                        <a class="nav-link link-menu span-page" href="/">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-menu span-page" href="/menu_digital">CARDÁPIO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link span-page link-menu" href="/#sobre">SOBRE</a>
+                    </li>
+                    <li class="nav-item d-none d-md-block">
+                        <p class="nav-link link-menu text-secondary" href="#sobre">|</p>
+                    </li>
+                    <?php if (!isset($_SESSION['cli_id'])) { ?>
+                        <li class="nav-item link-menu">
+                            <a href="/identifica" class="btn btn-danger">
+                                Entrar
+                            </a>
+                        </li>
+                    <?php } else {
+                    ?>
+                        <li class="nav-item span-page">
+                            <p class="nav-link text-white">
+                                Bem vindo(a), <?= $_SESSION['cli_name'] ?>
+                            </p>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-danger text-white" href="/sair">
+                                Sair
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--Fim do cabeçalho-->
+
+
+    <?= $this->content() ?>
+
+    
+    <!-- Rodapé -->
+    <footer class="page-footer bg-dark text-small mb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mt-4">
+                    <a href="/" class="text-secondary">INÍCIO</a>
+                    <a href="/menu_digital" class="text-secondary mx-3">CARDÁPIO</a>
+                    <a href="/#sobre" class="text-secondary">SOBRE</a>
+                </div>
+            </div>
+
+            <hr class="hr w-75 bg-secondary">
+            <div class="row mt-2">
+                <div class="col-12 mt-2 text-center">
+
+                    <a class="text-secondary mx-3">
+                        <i class="fab fa-facebook fa-lg" style="font-size:2em"></i>
+                    </a>
+
+                    <a class="text-secondary mx-3">
+                        <i class="fab fa-instagram fa-lg" style="font-size:2em"></i>
+                    </a>
+                    <a class="text-secondary mx-3">
+                        <i class="fab fa-whatsapp fa-lg" style="font-size:2em"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="row d-flex mt-2">
+                <div class="col-12 text-secondary text-center py-3">
+                    &copy; Todos os direitos reservados - OnliEat - 2020
+
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

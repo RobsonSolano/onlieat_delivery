@@ -1,0 +1,53 @@
+<!--Capa-->
+<section id="user" class="my-5 ">
+    <div class="container">
+        <div id="cadDadosPessoais">
+            <div class="row d-flex justify-content-center">
+
+                <div class="col-md-6 col-12  border rounded bg-white">
+                    <form action="/entrar" class="form p-2" method="POST">
+                        <div class="form-group text-center">
+                            <h3 class="text-secondary">Entrar</h3>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-prepend btn btn-dark text-white">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="email" name="cli_email" id="emailUser" required class="form-control" placeholder="Digite seu e-mail">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-prepend btn btn-dark text-white">
+                                    <i class="fas fa-key"></i>
+                                </span>
+                                <input type="password" name="cli_pass" id="passUser" required class="form-control" placeholder="Digite sua senha">
+                                <div class="input-group-append">
+                                    <span type="button" onmouseover="alterViewPass()" onmouseout="alterClosePass()" class="btn btn-secondary text-white">
+                                        <i id="eyesFas" class="fas fa-eye-slash"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-dark w-50">Entrar</button>
+                        </div>
+                        <?php if (isset($_GET['login']) && $_GET['login'] == "erro") {
+                        ?>
+                            <div class="form-group">
+                                <p class="text-danger">Falha ao fazer login!<br>Verifique os dados e tente novamente</p>
+                            </div>
+                        <?php } ?>
+                        <div class="form-group text-center">
+                            <p><a href="/forgot" class="text-secondary">Esqueceu a senha?</a></p>
+                            <p class="text-dark">Não possui cadastro? <a href="/inscreverse" class="text-dark">Registrar-se</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div style="min-height:35px !important;"></div>

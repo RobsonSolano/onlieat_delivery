@@ -1,0 +1,26 @@
+<div class="container-fluid" id="forgotForm">
+    <div class="row d-flex justify-content-center mt-3">
+        <div class="col-12 col-md-6 p-3 mt-3 bg-white shadow border rounded">
+
+
+            <form action="/forgot-send" method="post" class="w-100 p-4 text-start">
+                <?php if (isset($this->view->msgError)) { ?>
+                <div class="alert alert-danger  alert-dismisseble text-center" role="alert">
+                    <button class="close" type="button" data-dismiss="alert">
+                        &times;
+                    </button> <?= $this->view->msgError  ?>
+                </div>
+                <?php } ?>
+                <h4 class="text-secondary text-center border-bottom mb-2">Recupere sua senha</h4>
+
+                <label for="email">Digite seu e-mail cadastrado.</label>
+                <input type="email" name="email" id="email" required class="form-control w-100 mt-1 mb-2">
+
+                <input type="hidden" name="cli_id">
+                <div class="d-flex justify-content-start">
+                    <input type="submit" value="Enviar" class="btn btn-dark">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
